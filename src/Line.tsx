@@ -152,7 +152,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
           }
 
           
-          if(pointIconForPoint[i].x === data[i].x && pointIconForPoint[i].y === data[i].y && pointIconForPoint[i].icon !== undefined ){
+          if(pointIconForPoint && pointIconForPoint[i] && pointIconForPoint[i].x === data[i].x && pointIconForPoint[i].y === data[i].y && pointIconForPoint[i].icon !== undefined ){
             if(pointIconForPoint[i].icon === null){
               return (
                 <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}/>
