@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ViewStyle } from 'react-native';
-import { AxisDomain, ChartDataPoint, Padding, ViewPort } from './types';
+import { AxisDomain, ChartDataPoint, Padding, ViewPort, XYValue } from './types';
 declare type Props = {
     /** All styling can be used except for padding. If you need padding, use the explicit `padding` prop below.*/
     style?: ViewStyle;
@@ -18,6 +18,9 @@ declare type Props = {
     disableGestures?: boolean;
     /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
     padding?: Padding;
+};
+export declare type ChartHandle = {
+    setViewportOrigin: (origin: XYValue) => void;
 };
 declare const Chart: React.FC<Props>;
 export { Chart };

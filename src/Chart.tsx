@@ -62,6 +62,15 @@ const Chart: React.FC<Props> = React.memo(
       panY
     )
 
+    const scrollXValue = (x: number) => {
+      if (dataDimensions) {
+        const factorX = viewport.size.width / dataDimensions.width
+        setPanX((offset.x as any)._value - x * factorX)
+        offset.x.setValue(clamp((offset.x as any)._value - x, xDomain.min, xDomain.max - viewport.size.width))
+  
+      }
+    }
+
     const setViewportOrigin = (origin: XYValue) => {
       if (dataDimensions) {
         setPanX(origin.x)
@@ -69,7 +78,7 @@ const Chart: React.FC<Props> = React.memo(
       }
     }
 
-    React.useImperativeHandle(ref, () => ({ setViewportOrigin }))
+    React.useImperativeHandle(ref, () => ({ setViewportOrigin,scrollXValue }))
 
     const handleTouchEvent = React.useCallback(
       debounce(
