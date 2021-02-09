@@ -31,6 +31,7 @@ type Props = {
   disableGestures?: boolean
   /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
   padding?: Padding
+  
 }
 
 export type ChartHandle = {
