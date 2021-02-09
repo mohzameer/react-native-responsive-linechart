@@ -9,7 +9,7 @@ import maxBy from 'lodash.maxby'
 import debounce from 'lodash.debounce'
 import Svg, { G, Mask, Defs, Rect } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { AxisDomain, ChartDataPoint, Padding, ViewPort, TouchEvent } from './types'
+import { AxisDomain, ChartDataPoint, Padding, ViewPort, TouchEvent, XYValue } from './types'
 import { ChartContextProvider } from './ChartContext'
 import { calculateDataDimensions, calculateViewportDomain } from './Chart.utils'
 import { scalePointToDimensions } from './utils'
@@ -60,6 +60,13 @@ const Chart: React.FC<Props> = React.memo(React.forwardRef((props,ref) => {
     panY
   )
 
+  const setViewportOrigin = (origin: XYValue) => {
+    if (dataDimensions) {
+      setPanX(origin.x)
+      setPanY(origin.y)
+    }
+  }
+
   const handleTouchEvent = React.useCallback(
     debounce(
       (x: number, y: number) => {
@@ -90,7 +97,7 @@ const Chart: React.FC<Props> = React.memo(React.forwardRef((props,ref) => {
     }
   }
 
-  React.useImperativeHandle(ref,()=>({scrollXValue}))
+  React.useImperativeHandle(ref,()=>({scrollXValue,setViewportOrigin}))
 
   const handlePanEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
