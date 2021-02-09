@@ -159,8 +159,9 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
               )
             }else{
               return (
-                <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}/>
-                
+                <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}>
+                  { React.cloneElement(pointIconForPoint[i].icon,{width: 20, height: 20})}
+                </ForeignObject>
               )
             }
             
