@@ -5,6 +5,9 @@ export declare type XYValue = {
 export declare type ChartDataPoint = XYValue & {
     meta?: any;
 };
+export declare type IconPointDataPoint = XYValue & {
+    icon: JSX.Element;
+};
 export declare type Padding = {
     top?: number;
     left?: number;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChartDataPoint, Smoothing, Stroke, Shape } from './types';
+import { ChartDataPoint, Smoothing, Stroke, Shape, IconPointDataPoint } from './types';
 declare type Props = {
     /** Theme for the line */
     theme?: {
@@ -29,7 +29,7 @@ declare type Props = {
     /** to show all tooltips at once */
     alwaysShowAllToolTips?: boolean;
     /** any svg icon component to replace scatter points  */
-    pointIcon?: JSX.Element;
+    pointIconForPoint?: IconPointDataPoint[];
 };
 export declare type LineHandle = {
     setTooltipIndex: (index: number | undefined) => void;

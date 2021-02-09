@@ -4,7 +4,7 @@ import { G, Path, Rect, ForeignObject } from 'react-native-svg'
 
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
-import { ChartDataPoint, Smoothing, Stroke, Shape } from './types'
+import { ChartDataPoint, Smoothing, Stroke, Shape, IconPointDataPoint } from './types'
 import { scalePointsToDimensions, svgPath } from './utils'
 
 
@@ -38,7 +38,7 @@ type Props = {
   /** to show all tooltips at once */
   alwaysShowAllToolTips?: boolean
   /** any svg icon component to replace scatter points  */
-  pointIcon?: JSX.Element
+  pointIconForPoint?: IconPointDataPoint[]
 }
 
 export type LineHandle = {
@@ -58,7 +58,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
     onTooltipSelect,
     hideTooltipOnDragEnd,
     hideTooltipAfter,
-    pointIcon,
+    pointIconForPoint,
     onTooltipSelectEnd = () => {},
   } = deepmerge(defaultProps, props)
 
@@ -151,12 +151,20 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
             return null
           }
 
-          if(props.pointIcon !== undefined){
-            return (
-              <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}>
-                { React.cloneElement(pointIcon,{width: 20, height: 20})}
-              </ForeignObject>
-            )
+          
+          if(pointIconForPoint[i].x === data[i].x && pointIconForPoint[i].y === data[i].y && pointIconForPoint[i].icon !== undefined ){
+            if(pointIconForPoint[i].icon === null){
+              return (
+                <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}/>
+              )
+            }else{
+              return (
+                <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}>
+                  { React.cloneElement(pointIconForPoint[i].icon,{width: 20, height: 20})}
+                </ForeignObject>
+              )
+            }
+            
           }else{
             return(
               <Rect

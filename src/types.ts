@@ -2,6 +2,8 @@ export type XYValue = { x: number; y: number }
 
 export type ChartDataPoint = XYValue & { meta?: any }
 
+export type IconPointDataPoint = XYValue & { icon: JSX.Element }
+
 export type Padding = { top?: number; left?: number; right?: number; bottom?: number }
 
 export type Dimensions = { top: number; left: number; width: number; height: number }
