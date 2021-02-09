@@ -62,11 +62,11 @@ const Chart: React.FC<Props> = React.memo(
       panY
     )
 
-    const scrollXValue = (x: number) => {
+    const scrollXValue = (origin: XYValue, x: number) => {
       if (dataDimensions) {
         const factorX = viewport.size.width / dataDimensions.width
-        setPanX((offset.x as any)._value - x * factorX)
-        offset.x.setValue(clamp((offset.x as any)._value - x, xDomain.min, xDomain.max - viewport.size.width))
+        setPanX(origin.x  - x * factorX)
+        offset.x.setValue(clamp(origin.x  - x, xDomain.min, xDomain.max - viewport.size.width))
   
       }
     }
