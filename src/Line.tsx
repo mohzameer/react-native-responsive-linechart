@@ -158,12 +158,12 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
           if(pointIconForPoint && pointIconForPoint[i] && pointIconForPoint[i].x === data[i].x && pointIconForPoint[i].y === data[i].y && pointIconForPoint[i].icon !== undefined ){
             if(pointIconForPoint[i].icon === null){
               return (
-                <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}/>
+                <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy} key={JSON.stringify(p)}/>
               )
             }else{
               return (
                 <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}>
-                  { React.cloneElement(pointIconForPoint[i].icon,{width: 20, height: 20, key: i})}
+                  { React.cloneElement(pointIconForPoint[i].icon,{width: 20, height: 20, key: JSON.stringify(p)})}
                 </ForeignObject>
               )
             }
