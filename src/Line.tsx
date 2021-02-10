@@ -123,9 +123,12 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   const path = svgPath(points, smoothing, tension)
 
   let tooltipsAll:any[] = []
-  data.map((val,ind)=>{
-    tooltipsAll.push(React.cloneElement(tooltipComponent, {key: ind, value: val, position: scaledPoints[ind] }))
-  })
+  if(tooltipComponent){
+    data.map((val,ind)=>{
+
+      tooltipsAll.push(React.cloneElement(tooltipComponent, {key: ind, value: val, position: scaledPoints[ind] }))
+    })
+  }
 
   return (
     <React.Fragment>
