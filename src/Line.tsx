@@ -185,7 +185,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
         tooltipComponent && 
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
 
-       {props.alwaysShowAllToolTips !== undefined && props.alwaysShowAllToolTips && tooltipsAll}
+       {tooltipComponent && props.alwaysShowAllToolTips !== undefined && props.alwaysShowAllToolTips && tooltipsAll}
     </React.Fragment>
   )
 })
