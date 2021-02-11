@@ -129,6 +129,8 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   let pointArrs:any[] = [];
 
   if(ySkipPoint !== undefined && ySkipPoint !== null){
+
+
     data.map((val,index)=>{
 
       if(index !== points.length - 1) {
@@ -213,7 +215,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
               )
             }
             
-          }else if(data[i].y !== ySkipPoint){
+          }else if(ySkipPoint !== undefined && ySkipPoint !== null && data[i].y !== ySkipPoint){
             return(
               <Rect
                 key={JSON.stringify(p)}
