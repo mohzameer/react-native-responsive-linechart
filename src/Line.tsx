@@ -132,7 +132,6 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
 
 
     data.map((val,index)=>{
-
       if(index !== points.length - 1) {
         if(val.y === ySkipPoint){
           pointArrs.push(points.slice(lastSliceStartedArrayInd > 0 ? lastSliceStartedArrayInd + 1: 0,index));
@@ -148,13 +147,14 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   let paths:any[] = [];
   if(pointArrs.length > 0){
     pointArrs.forEach(element => {
-      path = svgPath(element, smoothing, tension)
-      paths.push(path);
+      if(element.length > 0){
+        path = svgPath(element, smoothing, tension)
+        paths.push(path);
+      }
     });
   }else{
     path = svgPath(points, smoothing, tension)
   }
-  
 
   let tooltipsAll:any[] = []
   if(tooltipComponent){
@@ -168,8 +168,9 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
     <React.Fragment>
       <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
         
-        {paths.length > 0 ? paths.map((path)=>{
+        {paths.length > 0 ? paths.map((path,index)=>{
           return  <Path
+          key={index}
           d={path}
           fill="none"
           strokeLinecap="round"
