@@ -132,7 +132,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
     data.map((val,index)=>{
 
       if(index !== points.length - 1) {
-        if(val.y === -1){
+        if(val.y === ySkipPoint){
           pointArrs.push(points.slice(lastSliceStartedArrayInd > 0 ? lastSliceStartedArrayInd + 1: 0,index));
           lastSliceStartedArrayInd = index;
         }
@@ -213,7 +213,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
               )
             }
             
-          }else if(data[i].y !== -1){
+          }else if(data[i].y !== ySkipPoint){
             return(
               <Rect
                 key={JSON.stringify(p)}
