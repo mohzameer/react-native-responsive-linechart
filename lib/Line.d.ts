@@ -30,6 +30,8 @@ declare type Props = {
     alwaysShowAllToolTips?: boolean;
     /** any svg icon component to replace scatter points  */
     pointIconForPoint?: IconPointDataPoint[];
+    /** y value as a flag to skip the point  */
+    ySkipPoint?: number;
 };
 export declare type LineHandle = {
     setTooltipIndex: (index: number | undefined) => void;

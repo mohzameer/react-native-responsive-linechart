@@ -4,7 +4,7 @@ import { G, Path, Rect, ForeignObject } from 'react-native-svg'
 
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
-import { ChartDataPoint, Smoothing, Stroke, Shape, IconPointDataPoint } from './types'
+import { ChartDataPoint, Smoothing, Stroke, Shape, IconPointDataPoint, XYValue } from './types'
 import { scalePointsToDimensions, svgPath } from './utils'
 
 
@@ -39,6 +39,8 @@ type Props = {
   alwaysShowAllToolTips?: boolean
   /** any svg icon component to replace scatter points  */
   pointIconForPoint?: IconPointDataPoint[]
+  /** y value as a flag to skip the point  */
+  ySkipPoint?: number
 }
 
 export type LineHandle = {
@@ -59,6 +61,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
     hideTooltipOnDragEnd,
     hideTooltipAfter,
     pointIconForPoint,
+    ySkipPoint,
     onTooltipSelectEnd = () => {},
   } = deepmerge(defaultProps, props)
 
@@ -120,7 +123,36 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
 
   const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
-  const path = svgPath(points, smoothing, tension)
+
+
+  let lastSliceStartedArrayInd = 0;
+  let pointArrs:any[] = [];
+
+  if(ySkipPoint !== undefined && ySkipPoint !== null){
+    data.map((val,index)=>{
+
+      if(index !== points.length - 1) {
+        if(val.y === -1){
+          pointArrs.push(points.slice(lastSliceStartedArrayInd > 0 ? lastSliceStartedArrayInd + 1: 0,index));
+          lastSliceStartedArrayInd = index;
+        }
+      }else{
+        pointArrs.push(points.slice(lastSliceStartedArrayInd > 0 ? lastSliceStartedArrayInd + 1: 0, index + 1));
+      }
+    })
+  }
+
+  let path = null;
+  let paths:any[] = [];
+  if(pointArrs.length > 0){
+    pointArrs.forEach(element => {
+      path = svgPath(element, smoothing, tension)
+      paths.push(path);
+    });
+  }else{
+    path = svgPath(points, smoothing, tension)
+  }
+  
 
   let tooltipsAll:any[] = []
   if(tooltipComponent){
@@ -133,7 +165,9 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   return (
     <React.Fragment>
       <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
-        <Path
+        
+        {paths.length > 0 ? paths.map((path)=>{
+          return  <Path
           d={path}
           fill="none"
           strokeLinecap="round"
@@ -143,6 +177,17 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
           strokeOpacity={stroke.opacity}
           mask="url(#Mask)"
         />
+        }) : (<Path
+          d={path}
+          fill="none"
+          strokeLinecap="round"
+          strokeDasharray={stroke.dashArray.length > 0 ? stroke.dashArray.join(',') : undefined}
+          stroke={stroke.color}
+          strokeWidth={stroke.width}
+          strokeOpacity={stroke.opacity}
+          mask="url(#Mask)"
+        />)}
+       
         {points.map((p, i) => {
           const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
           // Don't render if point falls out of viewport
@@ -168,7 +213,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
               )
             }
             
-          }else{
+          }else if(data[i].y !== -1){
             return(
               <Rect
                 key={JSON.stringify(p)}
