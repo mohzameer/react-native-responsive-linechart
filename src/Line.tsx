@@ -219,7 +219,20 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
               )
             }
             
-          }else if(ySkipPoint !== undefined && ySkipPoint !== null && data[i].y !== ySkipPoint){
+          }else if(ySkipPoint !== undefined && ySkipPoint !== null && data[i].y == ySkipPoint){
+            return(
+              <Rect
+                key={JSON.stringify(p)}
+                x={p.x - shape.width / 2 + shape.dx}
+                y={p.y - shape.height / 2 - shape.dy}
+                rx={shape.rx}
+                fill={shape.color}
+                opacity={0.0}
+                height={shape.height}
+                width={shape.width}
+              />
+            )
+          }else{
             return(
               <Rect
                 key={JSON.stringify(p)}
