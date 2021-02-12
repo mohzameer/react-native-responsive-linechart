@@ -125,18 +125,21 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
 
-  let lastSliceStartedArrayInd = 0;
+  let lastSliceStartedArrayInd = -1;
   let pointArrs:any[] = [];
 
   if(ySkipPoint !== undefined && ySkipPoint !== null){
     data.map((val,index)=>{
       if(index !== points.length - 1) {
         if(val.y === ySkipPoint){
-          pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index));
-          lastSliceStartedArrayInd = index;
+         if(index - lastSliceStartedArrayInd > 1)
+         {
+          pointArrs.push(points.slice( lastSliceStartedArrayInd + 1, index));
+         }
+         lastSliceStartedArrayInd = index;
         }
       }else{
-        pointArrs.push(points.slice(lastSliceStartedArrayInd > 0 ? lastSliceStartedArrayInd + 1: 0, index + 1));
+        pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index + 1));
       }
     })
   }
