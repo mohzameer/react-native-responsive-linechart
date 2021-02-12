@@ -129,12 +129,10 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   let pointArrs:any[] = [];
 
   if(ySkipPoint !== undefined && ySkipPoint !== null){
-
-
     data.map((val,index)=>{
       if(index !== points.length - 1) {
         if(val.y === ySkipPoint){
-          pointArrs.push(points.slice(lastSliceStartedArrayInd > 0 ? lastSliceStartedArrayInd + 1: 0,index));
+          pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index));
           lastSliceStartedArrayInd = index;
         }
       }else{
@@ -142,6 +140,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
       }
     })
   }
+
 
   let path = null;
   let paths:any[] = [];
