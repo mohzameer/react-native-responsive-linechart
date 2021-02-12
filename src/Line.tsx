@@ -158,7 +158,11 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   let tooltipsAll:any[] = []
   if(tooltipComponent){
     data.map((val,ind)=>{
-
+      if(ySkipPoint !== undefined && ySkipPoint !== null){
+        if(val.y === ySkipPoint){
+          return;
+        }
+      }
       tooltipsAll.push(React.cloneElement(tooltipComponent, {key: ind, value: val, position: scaledPoints[ind] }))
     })
   }
