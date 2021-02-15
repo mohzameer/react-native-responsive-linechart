@@ -139,11 +139,20 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
          lastSliceStartedArrayInd = index;
         }
       }else{
-        pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index + 1));
+        if(val.y === ySkipPoint){
+          if(index - lastSliceStartedArrayInd > 1)
+          {
+            pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index));
+          }else{
+            pointArrs.push(points.slice(lastSliceStartedArrayInd, index));
+          }
+          
+        }else{
+          pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index + 1));
+        }
       }
     })
   }
-
 
   let path = null;
   let paths:any[] = [];
