@@ -68,7 +68,7 @@ const defaultProps = {
       dy: 16.5,
     },
     shape: {
-      width: 35,
+      width: 45,
       height: 20,
       dx: 0,
       dy: 20,
