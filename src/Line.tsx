@@ -148,7 +148,9 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
           }
           
         }else{
-          pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index + 1));
+          if(data.length > 1){
+            pointArrs.push(points.slice(lastSliceStartedArrayInd + 1, index + 1));
+          }
         }
       }
     })
@@ -156,6 +158,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
 
   let path = null;
   let paths:any[] = [];
+  
   if(pointArrs.length > 0){
     pointArrs.forEach(element => {
       if(element.length > 0){
@@ -261,7 +264,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
         })}
       </G>
       {(props.alwaysShowAllToolTips === undefined || !props.alwaysShowAllToolTips) && tooltipIndex !== undefined &&
-        tooltipComponent && 
+        tooltipComponent &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
 
        {tooltipComponent && props.alwaysShowAllToolTips !== undefined && props.alwaysShowAllToolTips && tooltipsAll}
