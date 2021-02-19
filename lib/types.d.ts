@@ -52,6 +52,8 @@ export declare type Shape = {
     opacity?: number;
     radius?: number;
     border?: Stroke;
+    lineWidth?: number;
+    lineColor?: string;
 };
 export declare type Gradient = {
     from?: {

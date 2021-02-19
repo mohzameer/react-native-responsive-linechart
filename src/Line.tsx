@@ -258,6 +258,8 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
                 opacity={shape.opacity}
                 height={shape.height}
                 width={shape.width}
+                strokeWidth={shape.lineWidth}
+                stroke={shape.lineColor}
               />
             )
           }
@@ -290,6 +292,8 @@ const defaultProps = {
         dy: 0,
         rx: 0,
         color: 'black',
+        lineWidth: 0,
+        lineColor: 'black',
       },
       selected: {},
     },

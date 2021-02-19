@@ -27,7 +27,9 @@ export type Shape = {
   rx?: number
   opacity?: number
   radius?: number
-  border?: Stroke
+  border?: Stroke,
+  lineWidth?: number,
+  lineColor?: string
 }
 
 export type Gradient = { from?: { color?: string; opacity?: number }; to?: { color?: string; opacity?: number } }
