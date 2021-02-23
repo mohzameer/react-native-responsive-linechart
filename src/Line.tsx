@@ -266,7 +266,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
         })}
       </G>
       {(props.alwaysShowAllToolTips === undefined || !props.alwaysShowAllToolTips) && tooltipIndex !== undefined &&
-        tooltipComponent &&
+        tooltipComponent && data[tooltipIndex].y !== ySkipPoint &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
 
        {tooltipComponent && props.alwaysShowAllToolTips !== undefined && props.alwaysShowAllToolTips && tooltipsAll}
