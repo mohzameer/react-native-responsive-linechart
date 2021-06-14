@@ -1,6 +1,6 @@
 # react-native-responsive-linechart-scrollable
 
-Based on react-native-responsive-linechart, Programmatically Scrollable
+Based on react-native-responsive-linechart, Programmatically Scrollable, Can attach Images!!
 
 ## Announcing v5
 
@@ -26,6 +26,12 @@ Additional features:
 ![Preview 3](docusaurus/static/img/Tooltip.gif)
 ![Preview 4](docusaurus/static/img/Scrollable.gif)
 ![Preview 5](docusaurus/static/img/smoothing.png)
+
+### This fork supports svg as data points
+
+![Preview 1](https://user-images.githubusercontent.com/31923811/121885870-4edb8400-cd32-11eb-9827-bd40b699f783.png)
+![Preview 2](https://user-images.githubusercontent.com/31923811/121885878-50a54780-cd32-11eb-8762-fd0821bdad9b.png)
+
 
 ### Quick example
 
