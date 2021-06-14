@@ -1,6 +1,7 @@
 # react-native-responsive-linechart-scrollable
 
-Based on react-native-responsive-linechart, Programmatically Scrollable, Can attach Images!!
+Based on react-native-responsive-linechart, 
+### Programmatically Scrollable, Always show tooltips customizable, Can have SVGs as nodes.
 
 ## Announcing v5
 
@@ -67,6 +68,41 @@ const data2 = [
   { x: 9, y: 13.5 },
   { x: 10, y: 18 }
 ]
+```
+
+### SVG nodes
+
+```javascript
+import { Chart, VerticalAxis, HorizontalAxis, Line } from 'react-native-responsive-linechart'
+ <Line
+     alwaysShowAllToolTips={false}
+     data={data1}
+     pointIconForPoint={data1}
+     theme={{
+        stroke: { color: 'rgba(22,22,22,0.0)', width: 1 }, // line are set to transparent here
+        scatter: {
+            default: { width: 8, height: 8, rx: 4, color: '#44ad32' },
+            selected: { color: 'red' },
+           },
+        }}
+/>
+
+const data = [
+  { x: -2, y: 1 },
+  { x: -1, y: 0 },
+  { x: 8, y: 13 },
+  { x: 9, y: 11.5 },
+  { x: 10, y: 12 }
+]
+
+const data1 = [
+  { x: -2, y: 1, icon: <<svg icon here>> },
+  { x: -1, y: 0, icon: <<svg icon here>> },
+  { x: 8, y: 13, icon: <<svg icon here>> },
+  { x: 9, y: 11.5, icon: <<svg icon here>> },
+  { x: 10, y: 12, icon: <<svg icon here>> }
+]
+
 ```
 
 
